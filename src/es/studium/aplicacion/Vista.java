@@ -4,14 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Label;
 import java.awt.Panel;
 import java.awt.TextArea;
 import java.awt.TextField;
+import java.awt.Toolkit;
 
 public class Vista extends Frame {
 	private static final long serialVersionUID = 1L;
@@ -30,20 +33,27 @@ public class Vista extends Frame {
     TextArea txaReparto = new TextArea();
     Button btnAnterior = new Button("Anterior");
     Button btnSiguiente = new Button("Siguiente");
+    Image caratula;
     Modelo m = new Modelo();
-
+    
     public Vista() {
-        
+    	
+    	setTitle("Aplicación de Películas");
     	setSize(600, 400);
 
         // Panel principal con GridLayout
         Panel panelPrincipal = new Panel(new GridLayout(1, 2));
 
+        caratula = Toolkit.getDefaultToolkit().getImage("./images/" + m.rellenarCaratula());
         // Panel izquierdo para la carátula
-        Panel panelImagen = new Panel(new BorderLayout());
-        lblImagen = new Label();
-        panelImagen.add(lblImagen, BorderLayout.CENTER);
-
+        Panel panelImagen = new Panel(new BorderLayout()) {
+			private static final long serialVersionUID = 1L;
+			public void paint(Graphics g) {
+				g.drawImage(caratula, 10, 20, 300, 300, this);
+				repaint();
+			}
+        };
+        
         // Panel derecho para la información de la película
         Panel panelInfo = new Panel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -66,36 +76,37 @@ public class Vista extends Frame {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        panelInfo.add(lblFecha, gbc);
-
-        txtFecha.setEditable(false);
+        panelInfo.add(lblGenero, gbc);
+        
+        m.rellenarGenero(txtGenero);
+        txtGenero.setEditable(false);
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panelInfo.add(txtFecha, gbc);
-
+        panelInfo.add(txtGenero, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        panelInfo.add(lblReparto, gbc);
-
-        txaReparto.setEditable(false);
-        txaReparto.setColumns(20);
-        txaReparto.setRows(3);
+        panelInfo.add(lblFecha, gbc);
+        
+        m.rellenarFecha(txtFecha);
+        txtFecha.setEditable(false);
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.BOTH;
-        panelInfo.add(txaReparto, gbc);
-
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panelInfo.add(txtFecha, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
         panelInfo.add(lblDirector, gbc);
 
+        m.rellenarDirector(txtDirector);
         txtDirector.setEditable(false);
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -107,14 +118,17 @@ public class Vista extends Frame {
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        panelInfo.add(lblGenero, gbc);
+        panelInfo.add(lblReparto, gbc);
 
-        txtGenero.setEditable(false);
+        m.rellenarReparto(txaReparto);
+        txaReparto.setEditable(false);
+        txaReparto.setColumns(20);
+        txaReparto.setRows(3);
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panelInfo.add(txtGenero, gbc);
+        gbc.fill = GridBagConstraints.BOTH;
+        panelInfo.add(txaReparto, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -122,6 +136,7 @@ public class Vista extends Frame {
         gbc.fill = GridBagConstraints.NONE;
         panelInfo.add(lblArgumento, gbc);
 
+        m.rellenarArgumento(txaArgumento);
         txaArgumento.setEditable(false);
         txaArgumento.setColumns(20);
         txaArgumento.setRows(3);
@@ -146,4 +161,5 @@ public class Vista extends Frame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
 }

@@ -1,5 +1,6 @@
 package es.studium.aplicacion;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -23,11 +24,27 @@ public class Controlador implements WindowListener, ActionListener {
 		if(e.getSource().equals(this.vista.btnAnterior)) {
 			this.modelo.anterior();
 			this.modelo.rellenarTitulo(this.vista.txtTitulo);
+			this.modelo.rellenarGenero(this.vista.txtGenero);
+			this.modelo.rellenarFecha(this.vista.txtFecha);
+			this.modelo.rellenarDirector(this.vista.txtDirector);
+			this.modelo.rellenarReparto(this.vista.txaReparto);
+			this.modelo.rellenarArgumento(this.vista.txaArgumento);
+			this.modelo.rellenarCaratula();
 		}
 		if(e.getSource().equals(this.vista.btnSiguiente)) {
 			this.modelo.siguiente();
 			this.modelo.rellenarTitulo(this.vista.txtTitulo);
+			this.modelo.rellenarGenero(this.vista.txtGenero);
+			this.modelo.rellenarFecha(this.vista.txtFecha);
+			this.modelo.rellenarDirector(this.vista.txtDirector);
+			this.modelo.rellenarReparto(this.vista.txaReparto);
+			this.modelo.rellenarArgumento(this.vista.txaArgumento);
+			this.modelo.rellenarCaratula();
 		}
+		
+		String cambiarCaratula = this.modelo.rellenarCaratula();
+		String nuevaCaratula = "./images/" + cambiarCaratula;
+		this.vista.caratula = Toolkit.getDefaultToolkit().getImage(nuevaCaratula);
 	}
 
 	public void windowOpened(WindowEvent e) {}

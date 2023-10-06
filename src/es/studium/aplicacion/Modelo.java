@@ -1,5 +1,6 @@
 package es.studium.aplicacion;
 
+import java.awt.TextArea;
 import java.awt.TextField;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -42,7 +43,6 @@ public class Modelo {
             System.out.println("Error 2-"+sqle.getMessage());
         }
         return null;
-
     }
     
     public void anterior() {
@@ -63,7 +63,6 @@ public class Modelo {
     
     public void rellenarTitulo(TextField txtTitulo)
     {
-    	System.out.println(id);
         String sentencia = "select tituloPelicula from peliculas where idPelicula=" + id + ";";
         try {
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
@@ -77,7 +76,110 @@ public class Modelo {
         {
             System.out.println("Error 3-"+sqle.getMessage());
         }
-
     }
 
+    public void rellenarGenero(TextField txtGenero)
+    {
+        String sentencia = "select generoPelicula from peliculas where idPelicula=" + id + ";";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            // En resultado metemos todo lo que queremos almacenar en sentencia
+            ResultSet resultado = statement.executeQuery(sentencia);
+            while(resultado.next()) {
+                txtGenero.setText(resultado.getString("generoPelicula")); 
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error 4-"+sqle.getMessage());
+        }
+    }
+    
+    public void rellenarFecha(TextField txtFecha)
+    {
+        String sentencia = "select anioPelicula from peliculas where idPelicula=" + id + ";";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            // En resultado metemos todo lo que queremos almacenar en sentencia
+            ResultSet resultado = statement.executeQuery(sentencia);
+            while(resultado.next()) {
+                txtFecha.setText(resultado.getString("anioPelicula")); 
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error 5-"+sqle.getMessage());
+        }
+    }
+    
+    public void rellenarDirector(TextField txtDirector)
+    {
+        String sentencia = "select directorPelicula from peliculas where idPelicula=" + id + ";";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            // En resultado metemos todo lo que queremos almacenar en sentencia
+            ResultSet resultado = statement.executeQuery(sentencia);
+            while(resultado.next()) {
+                txtDirector.setText(resultado.getString("directorPelicula")); 
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error 6-"+sqle.getMessage());
+        }
+    }
+    
+    public void rellenarReparto(TextArea txaReparto)
+    {
+        String sentencia = "select repartoPelicula from peliculas where idPelicula=" + id + ";";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            // En resultado metemos todo lo que queremos almacenar en sentencia
+            ResultSet resultado = statement.executeQuery(sentencia);
+            while(resultado.next()) {
+                txaReparto.setText(resultado.getString("repartoPelicula")); 
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error 7-"+sqle.getMessage());
+        }
+    }
+    
+    public void rellenarArgumento(TextArea txaArgumento)
+    {
+        String sentencia = "select argumentoPelicula from peliculas where idPelicula=" + id + ";";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            // En resultado metemos todo lo que queremos almacenar en sentencia
+            ResultSet resultado = statement.executeQuery(sentencia);
+            while(resultado.next()) {
+                txaArgumento.setText(resultado.getString("argumentoPelicula")); 
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error 8-"+sqle.getMessage());
+        }
+    }
+    
+    public String rellenarCaratula() {
+    	System.out.println(id);
+    	String caratula = null;
+    	String sentencia = "select caratulaPelicula from peliculas where idPelicula=" + id + ";";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY); 
+            // En resultado metemos todo lo que queremos almacenar en sentencia
+            ResultSet resultado = statement.executeQuery(sentencia);
+            while(resultado.next()) {
+                caratula = resultado.getString("caratulaPelicula"); 
+            }
+        }
+        catch (SQLException sqle)
+        {
+            System.out.println("Error 9-"+sqle.getMessage());
+        }
+        System.out.println(caratula);
+        return caratula;
+    }
 }
