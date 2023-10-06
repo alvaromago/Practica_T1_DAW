@@ -21,11 +21,12 @@ public class Controlador implements WindowListener, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(this.vista.btnAnterior)) {
-			
+			this.modelo.anterior();
+			this.modelo.rellenarTitulo(this.vista.txtTitulo);
 		}
-		
 		if(e.getSource().equals(this.vista.btnSiguiente)) {
-			
+			this.modelo.siguiente();
+			this.modelo.rellenarTitulo(this.vista.txtTitulo);
 		}
 	}
 
