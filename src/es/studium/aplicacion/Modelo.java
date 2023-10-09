@@ -164,7 +164,6 @@ public class Modelo {
     }
     
     public String rellenarCaratula() {
-    	System.out.println(id);
     	String caratula = null;
     	String sentencia = "select caratulaPelicula from peliculas where idPelicula=" + id + ";";
         try {
@@ -179,7 +178,7 @@ public class Modelo {
         {
             System.out.println("Error 9-"+sqle.getMessage());
         }
-        System.out.println(caratula);
         return caratula;
     }
+    
 }

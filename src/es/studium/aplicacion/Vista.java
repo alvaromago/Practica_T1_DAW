@@ -18,7 +18,6 @@ import java.awt.Toolkit;
 
 public class Vista extends Frame {
 	private static final long serialVersionUID = 1L;
-	Label lblImagen;
 	Label lblTitulo = new Label("Título: ");
     Label lblFecha = new Label("Fecha: ");
     Label lblReparto = new Label("Reparto: ");
@@ -35,6 +34,7 @@ public class Vista extends Frame {
     Button btnSiguiente = new Button("Siguiente");
     Image caratula;
     Modelo m = new Modelo();
+    Panel panelImagen;
     
     public Vista() {
     	
@@ -46,13 +46,13 @@ public class Vista extends Frame {
 
         caratula = Toolkit.getDefaultToolkit().getImage("./images/" + m.rellenarCaratula());
         // Panel izquierdo para la carátula
-        Panel panelImagen = new Panel(new BorderLayout()) {
+        panelImagen = new Panel(new BorderLayout()){
 			private static final long serialVersionUID = 1L;
 			public void paint(Graphics g) {
 				g.drawImage(caratula, 10, 20, 300, 300, this);
-				repaint();
 			}
         };
+        panelImagen.repaint();
         
         // Panel derecho para la información de la película
         Panel panelInfo = new Panel(new GridBagLayout());
@@ -161,5 +161,9 @@ public class Vista extends Frame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
+    
+    public void actualizarCaratula(Image nuevaCaratula) {
+        this.caratula = nuevaCaratula;
+        panelImagen.repaint();
+    }
 }
