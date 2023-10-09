@@ -19,6 +19,7 @@ public class Controlador implements WindowListener, ActionListener {
 		this.vista.addWindowListener(this);
 		this.vista.btnAnterior.addActionListener(this);
 		this.vista.btnSiguiente.addActionListener(this);
+		this.modelo.totalPelis = this.modelo.totalPelis();
 	}
 
 	public void actionPerformed(ActionEvent e) {

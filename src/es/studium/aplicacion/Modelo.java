@@ -18,6 +18,7 @@ public class Modelo {
     Statement statement = null;
     ResultSet rs = null;
     int id = 1;
+    int totalPelis;
 
     Modelo()
     {
@@ -49,13 +50,13 @@ public class Modelo {
     	id--;
     	if (id==0)
     	{
-    		id=3;
+    		id=totalPelis;
     	}
     }
     
     public void siguiente() {
     	id++;
-    	if (id==4)
+    	if (id==totalPelis+1)
     	{
     		id=1;
     	}
@@ -181,4 +182,17 @@ public class Modelo {
         return caratula;
     }
     
+    public int totalPelis() {
+        String sentencia = "SELECT COUNT(*) AS totalPeliculas FROM peliculas;";
+        try {
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet resultado = statement.executeQuery(sentencia);
+            if (resultado.next()) {
+                totalPelis = resultado.getInt("totalPeliculas");
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error 10-" + sqle.getMessage());
+        }
+        return totalPelis;
+    }
 }
